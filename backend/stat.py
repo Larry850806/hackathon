@@ -4,6 +4,7 @@ import json
 
 cause_dict = dict()
 stat_dict = dict()
+road_dict = dict()
 alchol_dict = {
     2: 0,
     3: 0.075,
@@ -80,29 +81,33 @@ reason_dict = {
     ,66: "動物竄出"
     ,67: "尚未發現肇事因"
 }
-with open("./traffic_accident_105.csv", "r", encoding="utf8") as f:
+with open("traffic_accident_105.csv", "r", encoding="utf8") as f:
     reader = csv.DictReader(f)
     total_death = 0
     total_alchol = 0
     total_speed_limit = 0
-    for i, row in enumerate(reader):
+    for row in reader:
         area = row["區"]
         try:
             cause = reason_dict[int(row["主要肇因"])]
             drink = int(row["飲酒情形"])
             if area not in cause_dict:
+                # print(area)
                 cause_dict[area] = {}
                 stat_dict[area] = {}
+                road_dict[area] = {}
             if cause not in cause_dict[area]:
                 cause_dict[area][cause] = {"total_death": 0, "total_alchol": 0,
                                     "total_limit": 0, "cnt": 0}
                 stat_dict[area][cause] = {"avg_death": 0, "avg_alchol": 0,
                                     "avg_limit": 0}
+                road_dict[area][cause] = 0
             if 2 <= drink <= 6:
                 cause_dict[area][cause]["total_death"] += int(row["死"]) + int(row["受傷"])
                 cause_dict[area][cause]["total_alchol"] += alchol_dict[drink]
                 cause_dict[area][cause]["total_limit"] +=  int(row["速限"])
                 cause_dict[area][cause]["cnt"] += 1
+                road_dict[area][cause] += 1
         except ValueError:
             continue
             
@@ -114,8 +119,10 @@ for area, cause in cause_dict.items():
         stat_dict[area][reason]["avg_death"] = cause_dict[area][reason]["total_death"] / reason_len
         stat_dict[area][reason]["avg_alchol"] = cause_dict[area][reason]["total_alchol"] / reason_len
         stat_dict[area][reason]["avg_limit"] = cause_dict[area][reason]["total_limit"] / reason_len
-        
 
-with open("../stat.json", "w") as f:
-    json.dump(stat_dict, f)
 
+with open("../stat.json", "w", encoding="utf8") as f:
+    json.dump(stat_dict, f, ensure_ascii=False)
+
+with open("../reason.json", "w", encoding="utf8") as f:
+    json.dump(road_dict, f, ensure_ascii=False)
