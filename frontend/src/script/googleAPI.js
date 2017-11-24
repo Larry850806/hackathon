@@ -8,15 +8,21 @@ function initMap() {
       center: { lat: 24.9664322, lng: 121.2616219 },
       mapTypeId: 'terrain',
     })
-    map.addListener('click', (arg) => {
-        let geocoder = new google.maps.Geocoder()
-        const lat = arg.latLng.lat()
-        const lng = arg.latLng.lng()
-        const coord = new google.maps.LatLng(lat, lng)
-        geocoder.geocode({'latLng': coord }, (results, status) => {
-            const district = results[0].address_components[3].short_name
-            view.showBubbleChart(district)
-        })
+    map.addListener('click', arg => {
+      let geocoder = new google.maps.Geocoder()
+      const lat = arg.latLng.lat()
+      const lng = arg.latLng.lng()
+      const coord = new google.maps.LatLng(lat, lng)
+      geocoder.geocode({ latLng: coord }, (results, status) => {
+        const district = results[0].address_components[3].short_name
+
+        // clean
+        $('div#container').empty()
+        $('div#container1').empty()
+
+        view.showBubbleChart(district)
+        view.showBarChart(district)
+      })
     })
     resolve(map)
   })
@@ -32,6 +38,5 @@ function heapmap(map) {
     resolve(heatmap)
   })
 }
-
 
 export default { initMap, heapmap }

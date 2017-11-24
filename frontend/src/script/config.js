@@ -1,4 +1,4 @@
-const config = {
+const bubble = {
   chart: {
     type: 'bubble',
     plotBorderWidth: 1,
@@ -6,10 +6,6 @@ const config = {
   },
   legend: {
     enabled: false,
-  },
-
-  title: {
-    text: '死亡率',
   },
 
   xAxis: {
@@ -34,4 +30,45 @@ const config = {
   },
 }
 
-export default config
+const bar = {
+    chart: {
+        type: 'bar'
+    },
+    
+    yAxis: {
+        min: 0,
+        title: {
+            text: '事件數量',
+            align: 'high'
+        },
+        labels: {
+            overflow: 'justify'
+        }
+    },
+    tooltip: {
+        valueSuffix: ' millions'
+    },
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'top',
+        x: -40,
+        y: 80,
+        floating: true,
+        borderWidth: 1,
+        backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+        shadow: true
+    },
+    credits: {
+        enabled: false
+    },
+}
+
+export default {bubble, bar}

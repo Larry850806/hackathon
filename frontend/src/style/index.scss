@@ -1,0 +1,10 @@
+div.outside {
+  display: flex;
+}
+
+div#container,
+div#container1 {
+  width: 49%;
+  flex-grow: 1;
+  height: 400px;
+}
