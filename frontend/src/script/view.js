@@ -1,5 +1,5 @@
 import config from './config'
-import datas from '../../stat3.json'
+import datas from '../../stat.json'
 import reasonDatas from '../../reason2.json'
 
 function showBubbleChart(district) {
@@ -11,10 +11,10 @@ function showBubbleChart(district) {
       },
       series: [
         {
-          data: datas[district].map(data => ({
-            x: data.data.avg_alchol,
-            y: data.data.avg_limit,
-            z: data.data.avg_death * 1000,
+          data: Object.keys(datas[district]).map(key => ({
+            x: datas[district][key].avg_alchol,
+            y: datas[district][key].avg_limit,
+            z: datas[district][key].avg_death,
           })),
         },
       ],
