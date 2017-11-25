@@ -6,16 +6,16 @@ function showBubbleChart(district) {
   Highcharts.chart(
     'container',
     Object.assign({}, config.bubble, {
-        title: {
-            text: `${district}死亡率`,
-          },
-        series: [
+      title: {
+        text: `${district}死亡率`,
+      },
+      series: [
         {
           data: datas[district].map(data => ({
             x: data.data.avg_alchol,
             y: data.data.avg_limit,
             z: data.data.avg_death * 1000,
-        })),
+          })),
         },
       ],
     })
@@ -23,24 +23,40 @@ function showBubbleChart(district) {
 }
 
 function showBarChart(district) {
-    Highcharts.chart(
+  Highcharts.chart(
     'container1',
     Object.assign({}, config.bar, {
+      title: {
+        text: `${district}肇事主因`,
+      },
+      xAxis: {
+        categories: reasonDatas[district].slice(0, 5).map(e => e.title),
         title: {
-            text: `${district}肇事主因`
+          text: null,
         },
+<<<<<<< HEAD
         xAxis: {
             categories: reasonDatas[district].slice(0,5).map(e => e.title),
             title: {
                 text: null
+            },
+            labels: {
+                style: {
+                    fontSize:'18px'
+                }
             }
+            
+=======
+      },
+      series: [
+        {
+          data: reasonDatas[district].slice(0, 5).map(e => e.value),
+          showInLegend: false,
+>>>>>>> 3a6488057e9635a6b7b8f2a218358a86d56672aa
         },
-        series: [{
-            data: reasonDatas[district].slice(0,5).map(e => e.value)
-        }
-        ]
+      ],
     })
-    )
+  )
 }
 
 export default { showBubbleChart, showBarChart }
