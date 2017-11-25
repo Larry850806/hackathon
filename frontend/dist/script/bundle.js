@@ -109,8 +109,13 @@ function initMap() {
       var lat = arg.latLng.lat();
       var lng = arg.latLng.lng();
       var coord = new google.maps.LatLng(lat, lng);
-      geocoder.geocode({ 'latLng': coord }, function (results, status) {
+      geocoder.geocode({ latLng: coord }, function (results, status) {
         var district = results[0].address_components[3].short_name;
+
+        // clean
+        $('div#container').empty();
+        $('div#container1').empty();
+
         _view2.default.showBubbleChart(district);
         _view2.default.showBarChart(district);
       });
