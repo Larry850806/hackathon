@@ -1,9 +1,8 @@
-div#container {
-  display: inline-block;
-  width: 50%;
-  height: 400px; }
+div.outside {
+  display: flex; }
 
+div#container,
 div#container1 {
-  display: inline-block;
-  height: 400px;
-  width: 50%; }
+  width: 49%;
+  flex-grow: 1;
+  height: 400px; }
