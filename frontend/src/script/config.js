@@ -43,6 +43,7 @@ const bubble = {
 }
 
 const bar = {
+<<<<<<< HEAD
     chart: {
         type: 'bar'
     },
@@ -68,21 +69,47 @@ const bar = {
                 enabled: true
             }
         }
+=======
+  chart: {
+    type: 'bar',
+  },
+
+  yAxis: {
+    min: 0,
+    title: {
+      text: '事件數量',
+      align: 'high',
+>>>>>>> 3a6488057e9635a6b7b8f2a218358a86d56672aa
     },
-    legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'top',
-        x: -40,
-        y: 80,
-        floating: true,
-        borderWidth: 1,
-        backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-        shadow: true
+    labels: {
+      overflow: 'justify',
     },
-    credits: {
-        enabled: false
+  },
+  tooltip: {
+    valueSuffix: ' millions',
+  },
+  plotOptions: {
+    bar: {
+      dataLabels: {
+        enabled: true,
+      },
     },
+  },
+  legend: {
+    layout: 'vertical',
+    align: 'right',
+    verticalAlign: 'top',
+    x: -40,
+    y: 80,
+    floating: false,
+    borderWidth: 1,
+    backgroundColor:
+      (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+    shadow: true,
+  },
+  credits: {
+    enabled: false,
+  },
 }
 
-export default {bubble, bar}
+export default { bubble, bar }
