@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "gulp"
+    "dev": "gulp",
+    "host": "simplehttpserver -p 3000"
   },
   "dependencies": {
     "d3": "^4.12.0",
@@ -20,6 +21,7 @@
     "gulp": "^3.9.1",
     "gulp-sass": "^3.1.0",
     "gulp-util": "^3.0.8",
+    "simplehttpserver": "^0.0.6",
     "webpack": "^3.8.1"
   }
 }
