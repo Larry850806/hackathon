@@ -31,44 +31,45 @@ const bubble = {
 }
 
 const bar = {
-    chart: {
-        type: 'bar'
+  chart: {
+    type: 'bar',
+  },
+
+  yAxis: {
+    min: 0,
+    title: {
+      text: '事件數量',
+      align: 'high',
     },
-    
-    yAxis: {
-        min: 0,
-        title: {
-            text: '事件數量',
-            align: 'high'
-        },
-        labels: {
-            overflow: 'justify'
-        }
+    labels: {
+      overflow: 'justify',
     },
-    tooltip: {
-        valueSuffix: ' millions'
+  },
+  tooltip: {
+    valueSuffix: ' millions',
+  },
+  plotOptions: {
+    bar: {
+      dataLabels: {
+        enabled: true,
+      },
     },
-    plotOptions: {
-        bar: {
-            dataLabels: {
-                enabled: true
-            }
-        }
-    },
-    legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'top',
-        x: -40,
-        y: 80,
-        floating: true,
-        borderWidth: 1,
-        backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-        shadow: true
-    },
-    credits: {
-        enabled: false
-    },
+  },
+  legend: {
+    layout: 'vertical',
+    align: 'right',
+    verticalAlign: 'top',
+    x: -40,
+    y: 80,
+    floating: false,
+    borderWidth: 1,
+    backgroundColor:
+      (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+    shadow: true,
+  },
+  credits: {
+    enabled: false,
+  },
 }
 
-export default {bubble, bar}
+export default { bubble, bar }

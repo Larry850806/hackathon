@@ -150,7 +150,7 @@ module.exports = [{"lat":"24.8996823","lon":"121.1132981"},{"lat":"24.9891569","
 /***/ (function(module, exports, __webpack_require__) {
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _config = __webpack_require__(4);
@@ -168,41 +168,42 @@ var _reason2 = _interopRequireDefault(_reason);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function showBubbleChart(district) {
-    Highcharts.chart('container', Object.assign({}, _config2.default.bubble, {
-        title: {
-            text: district + '\u6B7B\u4EA1\u7387'
-        },
-        series: [{
-            data: _stat2.default[district].map(function (data) {
-                return {
-                    x: data.data.avg_alchol,
-                    y: data.data.avg_limit,
-                    z: data.data.avg_death * 1000
-                };
-            })
-        }]
-    }));
+  Highcharts.chart('container', Object.assign({}, _config2.default.bubble, {
+    title: {
+      text: district + '\u6B7B\u4EA1\u7387'
+    },
+    series: [{
+      data: _stat2.default[district].map(function (data) {
+        return {
+          x: data.data.avg_alchol,
+          y: data.data.avg_limit,
+          z: data.data.avg_death * 1000
+        };
+      })
+    }]
+  }));
 }
 
 function showBarChart(district) {
-    Highcharts.chart('container1', Object.assign({}, _config2.default.bar, {
-        title: {
-            text: district + '\u8087\u4E8B\u4E3B\u56E0'
-        },
-        xAxis: {
-            categories: _reason2.default[district].slice(0, 5).map(function (e) {
-                return e.title;
-            }),
-            title: {
-                text: null
-            }
-        },
-        series: [{
-            data: _reason2.default[district].slice(0, 5).map(function (e) {
-                return e.value;
-            })
-        }]
-    }));
+  Highcharts.chart('container1', Object.assign({}, _config2.default.bar, {
+    title: {
+      text: district + '\u8087\u4E8B\u4E3B\u56E0'
+    },
+    xAxis: {
+      categories: _reason2.default[district].slice(0, 5).map(function (e) {
+        return e.title;
+      }),
+      title: {
+        text: null
+      }
+    },
+    series: [{
+      data: _reason2.default[district].slice(0, 5).map(function (e) {
+        return e.value;
+      }),
+      showInLegend: false
+    }]
+  }));
 }
 
 exports.default = { showBubbleChart: showBubbleChart, showBarChart: showBarChart };
@@ -212,79 +213,79 @@ exports.default = { showBubbleChart: showBubbleChart, showBarChart: showBarChart
 /***/ (function(module, exports) {
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 var bubble = {
-    chart: {
-        type: 'bubble',
-        plotBorderWidth: 1,
-        zoomType: 'xy'
-    },
-    legend: {
-        enabled: false
-    },
+  chart: {
+    type: 'bubble',
+    plotBorderWidth: 1,
+    zoomType: 'xy'
+  },
+  legend: {
+    enabled: false
+  },
 
-    xAxis: {
-        gridLineWidth: 1,
-        title: {
-            text: '酒精平均濃度'
-        },
-        labels: {
-            format: '{value} %'
-        }
+  xAxis: {
+    gridLineWidth: 1,
+    title: {
+      text: '酒精平均濃度'
     },
-    yAxis: {
-        startOnTick: false,
-        endOnTick: false,
-        title: {
-            text: '限速'
-        },
-        labels: {
-            format: '{value} km/h'
-        },
-        maxPadding: 0.2
+    labels: {
+      format: '{value} %'
     }
+  },
+  yAxis: {
+    startOnTick: false,
+    endOnTick: false,
+    title: {
+      text: '限速'
+    },
+    labels: {
+      format: '{value} km/h'
+    },
+    maxPadding: 0.2
+  }
 };
 
 var bar = {
-    chart: {
-        type: 'bar'
-    },
+  chart: {
+    type: 'bar'
+  },
 
-    yAxis: {
-        min: 0,
-        title: {
-            text: '事件數量',
-            align: 'high'
-        },
-        labels: {
-            overflow: 'justify'
-        }
+  yAxis: {
+    min: 0,
+    title: {
+      text: '事件數量',
+      align: 'high'
     },
-    tooltip: {
-        valueSuffix: ' millions'
-    },
-    plotOptions: {
-        bar: {
-            dataLabels: {
-                enabled: true
-            }
-        }
-    },
-    legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'top',
-        x: -40,
-        y: 80,
-        floating: true,
-        borderWidth: 1,
-        backgroundColor: Highcharts.theme && Highcharts.theme.legendBackgroundColor || '#FFFFFF',
-        shadow: true
-    },
-    credits: {
-        enabled: false
+    labels: {
+      overflow: 'justify'
     }
+  },
+  tooltip: {
+    valueSuffix: ' millions'
+  },
+  plotOptions: {
+    bar: {
+      dataLabels: {
+        enabled: true
+      }
+    }
+  },
+  legend: {
+    layout: 'vertical',
+    align: 'right',
+    verticalAlign: 'top',
+    x: -40,
+    y: 80,
+    floating: false,
+    borderWidth: 1,
+    backgroundColor: Highcharts.theme && Highcharts.theme.legendBackgroundColor || '#FFFFFF',
+    shadow: true
+  },
+  credits: {
+    enabled: false
+  }
 };
 
 exports.default = { bubble: bubble, bar: bar };
