@@ -95,7 +95,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function initMap() {
     return new Promise(function (resolve, reject) {
-        var map = new google.maps.Map($('div#map'), {
+        var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 2,
             center: { lat: 24.993113, lng: 121.301028 },
             mapTypeId: 'terrain'

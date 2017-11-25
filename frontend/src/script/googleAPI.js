@@ -2,9 +2,9 @@ import datas from '../../location.json'
 
 function initMap() {
     return new Promise((resolve, reject) => {
-        const map = new google.maps.Map($('div#map'), {
+        let map = new google.maps.Map(document.getElementById('map'), {
             zoom: 2,
-            center: ({ lat: 24.993113, lng: 121.301028 }),
+            center: { lat: 24.993113, lng: 121.301028 },
             mapTypeId: 'terrain'
         })
         resolve(map)
