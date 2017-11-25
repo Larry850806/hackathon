@@ -4,7 +4,7 @@ function initMap() {
   return new Promise((resolve, reject) => {
     let map = new google.maps.Map(document.getElementById('map'), {
       zoom: 12,
-      center: { lat: 24.993113, lng: 121.301028 },
+      center: { lat: 24.9664322, lng: 121.2616219 },
       mapTypeId: 'terrain',
     })
     resolve(map)
