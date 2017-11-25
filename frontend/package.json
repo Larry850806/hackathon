@@ -8,8 +8,7 @@
     "host": "simplehttpserver -p 3000"
   },
   "dependencies": {
-    "geocoder": "^0.2.3",
-    "highcharts": "^6.0.3"
+    "geocoder": "^0.2.3"
   },
   "devDependencies": {
     "babel": "^6.23.0",

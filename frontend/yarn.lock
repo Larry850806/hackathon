@@ -1872,6 +1872,10 @@ hawk@~6.0.2:
     hoek "4.x.x"
     sntp "2.x.x"
 
+highcharts-more@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/highcharts-more/-/highcharts-more-0.1.2.tgz#38c2e386569ec79c8bd97fd68b384c5ea512efac"
+
 highcharts@^6.0.3:
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-6.0.3.tgz#51348a0c97d8bdc87cb3b273460e3751db4a51cd"
