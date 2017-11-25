@@ -190,7 +190,9 @@ function showBarChart(district) {
       text: district + '\u8087\u4E8B\u4E3B\u56E0'
     },
     xAxis: {
-      categories: _reason2.default[district].slice(0, 5).map(function (e) {
+      categories: _reason2.default[district].filter(function (e) {
+        return e.title !== '不明原因肇事';
+      }).slice(0, 5).map(function (e) {
         return e.title;
       }),
       title: {

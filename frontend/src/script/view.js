@@ -30,7 +30,10 @@ function showBarChart(district) {
         text: `${district}肇事主因`,
       },
       xAxis: {
-        categories: reasonDatas[district].slice(0, 5).map(e => e.title),
+        categories: reasonDatas[district]
+          .filter(e => e.title !== '不明原因肇事')
+          .slice(0, 5)
+          .map(e => e.title),
         title: {
           text: null,
         },
