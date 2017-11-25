@@ -1,10 +1,11 @@
 div.outside {
   display: flex;
+  padding: 0 7%;
 }
 
 div#container,
 div#container1 {
-  width: 49%;
+  width: 41%;
   flex-grow: 1;
   height: 400px;
 }
