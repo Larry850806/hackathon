@@ -34,25 +34,16 @@ function showBarChart(district) {
         title: {
           text: null,
         },
-<<<<<<< HEAD
-        xAxis: {
-            categories: reasonDatas[district].slice(0,5).map(e => e.title),
-            title: {
-                text: null
-            },
-            labels: {
-                style: {
-                    fontSize:'18px'
-                }
-            }
-            
-=======
+        labels: {
+          style: {
+            fontSize: '18px',
+          },
+        },
       },
       series: [
         {
           data: reasonDatas[district].slice(0, 5).map(e => e.value),
           showInLegend: false,
->>>>>>> 3a6488057e9635a6b7b8f2a218358a86d56672aa
         },
       ],
     })
