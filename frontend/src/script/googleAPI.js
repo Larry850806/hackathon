@@ -16,6 +16,7 @@ function initMap() {
         geocoder.geocode({'latLng': coord }, (results, status) => {
             const district = results[0].address_components[3].short_name
             view.showBubbleChart(district)
+            view.showBarChart(district)
         })
     })
     resolve(map)

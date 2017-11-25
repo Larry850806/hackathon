@@ -112,6 +112,7 @@ function initMap() {
       geocoder.geocode({ 'latLng': coord }, function (results, status) {
         var district = results[0].address_components[3].short_name;
         _view2.default.showBubbleChart(district);
+        _view2.default.showBarChart(district);
       });
     });
     resolve(map);
@@ -144,7 +145,7 @@ module.exports = [{"lat":"24.8996823","lon":"121.1132981"},{"lat":"24.9891569","
 /***/ (function(module, exports, __webpack_require__) {
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _config = __webpack_require__(4);
@@ -155,79 +156,145 @@ var _stat = __webpack_require__(5);
 
 var _stat2 = _interopRequireDefault(_stat);
 
+var _reason = __webpack_require__(6);
+
+var _reason2 = _interopRequireDefault(_reason);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import Highcharts from 'highcharts'
-// window.Highcharts = Highcharts
-// require('highcharts-more')
 function showBubbleChart(district) {
-  console.log(district);
-
-  Highcharts.chart('container', Object.assign({}, _config2.default, {
-    series: [{
-      data: _stat2.default[district].map(function (data) {
-        return {
-          x: data.data.avg_alchol,
-          y: data.data.avg_limit,
-          z: data.data.avg_death * 1000
-        };
-      })
-    }]
-  }));
+    Highcharts.chart('container', Object.assign({}, _config2.default.bubble, {
+        title: {
+            text: district + '\u6B7B\u4EA1\u7387'
+        },
+        series: [{
+            data: _stat2.default[district].map(function (data) {
+                return {
+                    x: data.data.avg_alchol,
+                    y: data.data.avg_limit,
+                    z: data.data.avg_death * 1000
+                };
+            })
+        }]
+    }));
 }
 
-exports.default = { showBubbleChart: showBubbleChart };
+function showBarChart(district) {
+    Highcharts.chart('container1', Object.assign({}, _config2.default, {
+        title: {
+            text: district + '\u8087\u4E8B\u4E3B\u56E0'
+        },
+        xAxis: {
+            categories: _reason2.default[district].slice(0, 5).map(function (e) {
+                return e.title;
+            }),
+            title: {
+                text: null
+            }
+        },
+        series: [{
+            data: _reason2.default[district].slice(0, 5).map(function (e) {
+                return e.value;
+            })
+        }]
+    }));
+}
+
+exports.default = { showBubbleChart: showBubbleChart, showBarChart: showBarChart };
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
-var config = {
-  chart: {
-    type: 'bubble',
-    plotBorderWidth: 1,
-    zoomType: 'xy'
-  },
-  legend: {
-    enabled: false
-  },
-
-  title: {
-    text: '死亡率'
-  },
-
-  xAxis: {
-    gridLineWidth: 1,
-    title: {
-      text: '酒精平均濃度'
+var bubble = {
+    chart: {
+        type: 'bubble',
+        plotBorderWidth: 1,
+        zoomType: 'xy'
     },
-    labels: {
-      format: '{value} %'
+    legend: {
+        enabled: false
+    },
+
+    xAxis: {
+        gridLineWidth: 1,
+        title: {
+            text: '酒精平均濃度'
+        },
+        labels: {
+            format: '{value} %'
+        }
+    },
+    yAxis: {
+        startOnTick: false,
+        endOnTick: false,
+        title: {
+            text: '限速'
+        },
+        labels: {
+            format: '{value} km/h'
+        },
+        maxPadding: 0.2
     }
-  },
-  yAxis: {
-    startOnTick: false,
-    endOnTick: false,
-    title: {
-      text: '限速'
-    },
-    labels: {
-      format: '{value} km/h'
-    },
-    maxPadding: 0.2
-  }
 };
 
-exports.default = config;
+var bar = {
+    chart: {
+        type: 'bar'
+    },
+
+    yAxis: {
+        min: 0,
+        title: {
+            text: '事件數量',
+            align: 'high'
+        },
+        labels: {
+            overflow: 'justify'
+        }
+    },
+    tooltip: {
+        valueSuffix: ' millions'
+    },
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'top',
+        x: -40,
+        y: 80,
+        floating: true,
+        borderWidth: 1,
+        backgroundColor: Highcharts.theme && Highcharts.theme.legendBackgroundColor || '#FFFFFF',
+        shadow: true
+    },
+    credits: {
+        enabled: false
+    }
+};
+
+exports.default = { bubble: bubble, bar: bar };
 
 /***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
 module.exports = {"新屋區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.2307692307692308,"avg_alchol":0.22307692307692312,"avg_limit":48.46153846153846}},{"title":"超速失控","data":{"avg_death":1.5,"avg_alchol":0,"avg_limit":40}}],"蘆竹區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.12,"avg_alchol":0.20900000000000002,"avg_limit":47.6}},{"title":"超速失控","data":{"avg_death":1,"avg_alchol":0,"avg_limit":50}}],"八德區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.5,"avg_alchol":0.2208333333333333,"avg_limit":47.5}},{"title":"超速失控","data":{"avg_death":1,"avg_alchol":0,"avg_limit":45}}],"大溪區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.1666666666666667,"avg_alchol":0.19999999999999998,"avg_limit":46.666666666666664}},{"title":"超速失控","data":{"avg_death":1.2352941176470589,"avg_alchol":0,"avg_limit":42.35294117647059}}],"楊梅區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.2,"avg_alchol":0.20749999999999996,"avg_limit":47}},{"title":"超速失控","data":{"avg_death":1.5454545454545454,"avg_alchol":0,"avg_limit":46.36363636363637}}],"中壢區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.2258064516129032,"avg_alchol":0.2153225806451614,"avg_limit":48.38709677419355}},{"title":"超速失控","data":{"avg_death":1.1818181818181819,"avg_alchol":0,"avg_limit":49.54545454545455}}],"龜山區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.2142857142857142,"avg_alchol":0.20535714285714285,"avg_limit":50}},{"title":"超速失控","data":{"avg_death":1.1428571428571428,"avg_alchol":0,"avg_limit":52.857142857142854}}],"桃園區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.3333333333333333,"avg_alchol":0.2341666666666668,"avg_limit":45.833333333333336}},{"title":"超速失控","data":{"avg_death":1.375,"avg_alchol":0,"avg_limit":45.416666666666664}}],"平鎮區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.173913043478261,"avg_alchol":0.2097826086956522,"avg_limit":48.26086956521739}},{"title":"超速失控","data":{"avg_death":2,"avg_alchol":0,"avg_limit":61.666666666666664}}],"大園區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.2222222222222223,"avg_alchol":0.2046296296296297,"avg_limit":47.77777777777778}},{"title":"超速失控","data":{"avg_death":1,"avg_alchol":0.0075,"avg_limit":52}}],"觀音區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.25,"avg_alchol":0.22187499999999996,"avg_limit":51.25}},{"title":"超速失控","data":{"avg_death":1.3333333333333333,"avg_alchol":0,"avg_limit":53.333333333333336}}],"復興區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":0,"avg_alchol":0,"avg_limit":0}},{"title":"超速失控","data":{"avg_death":1.2,"avg_alchol":0,"avg_limit":42}}],"龍潭區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.1111111111111112,"avg_alchol":0.2027777777777778,"avg_limit":46.666666666666664}},{"title":"超速失控","data":{"avg_death":1.5,"avg_alchol":0.03333333333333333,"avg_limit":45}}]}
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+module.exports = {"新屋區":[{"title":"未注意車前狀態","value":137},{"title":"未依規定讓車","value":121},{"title":"其他引起事故之違規或不當行為","value":32},{"title":"違反號誌管制或指揮","value":26},{"title":"迴轉未依規定","value":16},{"title":"酒醉(後)駕駛失控","value":13},{"title":"左轉彎未依規定","value":13},{"title":"不明原因肇事","value":12},{"title":"違反特定標誌(線)禁制","value":11},{"title":"未保持行車安全距離","value":10},{"title":"起步未注意其他車(人)安全","value":10},{"title":"右轉彎未依規定","value":8},{"title":"疲勞(患病)駕駛失控","value":8},{"title":"未保持行車安全間隔","value":7},{"title":"變換車道或方向不當","value":6},{"title":"尚未發現肇事因素","value":6},{"title":"未依規定減速","value":5},{"title":"逆向行駛","value":4},{"title":"倒車未依規定","value":4},{"title":"超速失控","value":2},{"title":"開啟車門不當而肇事","value":2},{"title":"其他引起事故之故障","value":2},{"title":"停車操作時，未注意其他車(人)安全","value":2},{"title":"橫越道路不慎","value":2},{"title":"未依規定使用燈光","value":1},{"title":"違規停車或暫停不當而肇事","value":1},{"title":"載貨超重而失控","value":1},{"title":"未靠右行駛","value":1},{"title":"爭(搶)道行駛","value":1},{"title":"其他引起事故之疏失或行為","value":0},{"title":"違規超車","value":0},{"title":"穿越道路未注意左右來車","value":0},{"title":"未依規定行走行人穿越道、地下道、天橋而穿越道路","value":0}],"蘆竹區":[{"title":"未注意車前狀態","value":498},{"title":"不明原因肇事","value":380},{"title":"未依規定讓車","value":284},{"title":"左轉彎未依規定","value":124},{"title":"違反號誌管制或指揮","value":70},{"title":"右轉彎未依規定","value":63},{"title":"迴轉未依規定","value":49},{"title":"未保持行車安全間隔","value":48},{"title":"違反特定標誌(線)禁制","value":37},{"title":"變換車道或方向不當","value":31},{"title":"起步未注意其他車(人)安全","value":29},{"title":"未保持行車安全距離","value":26},{"title":"酒醉(後)駕駛失控","value":25},{"title":"開啟車門不當而肇事","value":23},{"title":"其他引起事故之違規或不當行為","value":23},{"title":"尚未發現肇事因素","value":15},{"title":"倒車未依規定","value":13},{"title":"逆向行駛","value":13},{"title":"橫越道路不慎","value":8},{"title":"未依規定減速","value":7},{"title":"疲勞(患病)駕駛失控","value":7},{"title":"停車操作時，未注意其他車(人)安全","value":7},{"title":"違規停車或暫停不當而肇事","value":4},{"title":"未靠右行駛","value":4},{"title":"車輪脫落或輪胎爆裂","value":4},{"title":"爭(搶)道行駛","value":3},{"title":"超速失控","value":2},{"title":"路況危險無安全（警告）設施","value":2},{"title":"未依規定行走行人穿越道、地下道、天橋而穿越道路","value":2},{"title":"煞車失靈","value":2},{"title":"搶越行人穿越道","value":2},{"title":"違規超車","value":2},{"title":"裝載未盡安全措施","value":1},{"title":"車輛零件脫落","value":1},{"title":"裝卸貨物不當","value":1},{"title":"穿越道路未注意左右來車","value":1},{"title":"其他裝載不當肇事","value":1},{"title":"其他引起事故之疏失或行為","value":0},{"title":"未依標誌、標線、號誌或手勢指揮穿越道路","value":0}],"八德區":[{"title":"不明原因肇事","value":1680},{"title":"尚未發現肇事因素","value":269},{"title":"未注意車前狀態","value":243},{"title":"未依規定讓車","value":174},{"title":"左轉彎未依規定","value":86},{"title":"未保持行車安全距離","value":45},{"title":"右轉彎未依規定","value":45},{"title":"未保持行車安全間隔","value":44},{"title":"違反號誌管制或指揮","value":36},{"title":"迴轉未依規定","value":21},{"title":"開啟車門不當而肇事","value":21},{"title":"未依規定減速","value":15},{"title":"變換車道或方向不當","value":12},{"title":"橫越道路不慎","value":12},{"title":"其他引起事故之違規或不當行為","value":12},{"title":"酒醉(後)駕駛失控","value":12},{"title":"疲勞(患病)駕駛失控","value":9},{"title":"逆向行駛","value":8},{"title":"起步未注意其他車(人)安全","value":7},{"title":"違規超車","value":7},{"title":"未靠右行駛","value":5},{"title":"路況危險無安全（警告）設施","value":4},{"title":"爭(搶)道行駛","value":4},{"title":"倒車未依規定","value":3},{"title":"違反特定標誌(線)禁制","value":3},{"title":"停車操作時，未注意其他車(人)安全","value":3},{"title":"未依規定使用燈光","value":2},{"title":"超速失控","value":2},{"title":"搶越行人穿越道","value":1},{"title":"方向操縱系統故障","value":1},{"title":"未依標誌、標線、號誌或手勢指揮穿越道路","value":1},{"title":"未依規定行走行人穿越道、地下道、天橋而穿越道路","value":1},{"title":"蛇行、方向不定","value":1},{"title":"裝載貨物不穩妥","value":1},{"title":"裝載未盡安全措施","value":1},{"title":"裝卸貨物不當","value":1},{"title":"車輪脫落或輪胎爆裂","value":1},{"title":"其他引起事故之故障","value":1},{"title":"其他交通管制不當","value":0},{"title":"其他引起事故之疏失或行為","value":0},{"title":"在道路上嬉戲或奔走不定","value":0},{"title":"尚未發現肇事因","value":0},{"title":"煞車失靈","value":0},{"title":"穿越道路未注意左右來車","value":0}],"大溪區":[{"title":"不明原因肇事","value":225},{"title":"尚未發現肇事因素","value":210},{"title":"未注意車前狀態","value":171},{"title":"未依規定讓車","value":114},{"title":"左轉彎未依規定","value":65},{"title":"其他引起事故之違規或不當行為","value":32},{"title":"迴轉未依規定","value":31},{"title":"右轉彎未依規定","value":27},{"title":"未保持行車安全距離","value":24},{"title":"違反特定標誌(線)禁制","value":22},{"title":"違反號誌管制或指揮","value":21},{"title":"未保持行車安全間隔","value":20},{"title":"超速失控","value":17},{"title":"變換車道或方向不當","value":17},{"title":"起步未注意其他車(人)安全","value":12},{"title":"未依規定減速","value":12},{"title":"疲勞(患病)駕駛失控","value":12},{"title":"逆向行駛","value":10},{"title":"開啟車門不當而肇事","value":9},{"title":"違規超車","value":8},{"title":"倒車未依規定","value":7},{"title":"酒醉(後)駕駛失控","value":6},{"title":"橫越道路不慎","value":6},{"title":"未靠右行駛","value":6},{"title":"爭(搶)道行駛","value":5},{"title":"停車操作時，未注意其他車(人)安全","value":3},{"title":"違規停車或暫停不當而肇事","value":2},{"title":"搶越行人穿越道","value":1},{"title":"其他引起事故之故障","value":1},{"title":"尚未發現肇事因","value":1},{"title":"蛇行、方向不定","value":1},{"title":"路況危險無安全（警告）設施","value":1},{"title":"車輪脫落或輪胎爆裂","value":1},{"title":"穿越道路未注意左右來車","value":0},{"title":"未依規定行走行人穿越道、地下道、天橋而穿越道路","value":0},{"title":"其他引起事故之疏失或行為","value":0}],"楊梅區":[{"title":"未依規定讓車","value":432},{"title":"未注意車前狀態","value":305},{"title":"左轉彎未依規定","value":110},{"title":"其他引起事故之違規或不當行為","value":74},{"title":"不明原因肇事","value":50},{"title":"迴轉未依規定","value":47},{"title":"違反號誌管制或指揮","value":44},{"title":"未保持行車安全距離","value":43},{"title":"未保持行車安全間隔","value":39},{"title":"右轉彎未依規定","value":38},{"title":"違反特定標誌(線)禁制","value":36},{"title":"起步未注意其他車(人)安全","value":29},{"title":"變換車道或方向不當","value":27},{"title":"酒醉(後)駕駛失控","value":20},{"title":"尚未發現肇事因素","value":19},{"title":"橫越道路不慎","value":17},{"title":"逆向行駛","value":17},{"title":"未依規定減速","value":17},{"title":"疲勞(患病)駕駛失控","value":14},{"title":"違規超車","value":14},{"title":"倒車未依規定","value":12},{"title":"開啟車門不當而肇事","value":11},{"title":"超速失控","value":11},{"title":"停車操作時，未注意其他車(人)安全","value":6},{"title":"未靠右行駛","value":6},{"title":"違規停車或暫停不當而肇事","value":4},{"title":"蛇行、方向不定","value":4},{"title":"搶越行人穿越道","value":2},{"title":"爭(搶)道行駛","value":2},{"title":"其他裝載不當肇事","value":1},{"title":"穿越道路未注意左右來車","value":1},{"title":"裝載未盡安全措施","value":1},{"title":"煞車失靈","value":1},{"title":"其他引起事故之故障","value":1},{"title":"未依規定行走行人穿越道、地下道、天橋而穿越道路","value":1},{"title":"夜間行駛無燈光設備","value":1},{"title":"其他引起事故之疏失或行為","value":0},{"title":"未依標誌、標線、號誌或手勢指揮穿越道路","value":0}],"中壢區":[{"title":"不明原因肇事","value":1682},{"title":"未注意車前狀態","value":1643},{"title":"未依規定讓車","value":972},{"title":"尚未發現肇事因素","value":406},{"title":"左轉彎未依規定","value":382},{"title":"違反號誌管制或指揮","value":190},{"title":"右轉彎未依規定","value":183},{"title":"迴轉未依規定","value":169},{"title":"未保持行車安全距離","value":149},{"title":"未保持行車安全間隔","value":141},{"title":"違反特定標誌(線)禁制","value":105},{"title":"其他引起事故之違規或不當行為","value":86},{"title":"變換車道或方向不當","value":78},{"title":"開啟車門不當而肇事","value":62},{"title":"起步未注意其他車(人)安全","value":46},{"title":"逆向行駛","value":41},{"title":"橫越道路不慎","value":41},{"title":"未依規定減速","value":41},{"title":"倒車未依規定","value":35},{"title":"違規超車","value":33},{"title":"酒醉(後)駕駛失控","value":31},{"title":"疲勞(患病)駕駛失控","value":22},{"title":"違規停車或暫停不當而肇事","value":17},{"title":"未靠右行駛","value":16},{"title":"爭(搶)道行駛","value":15},{"title":"未依規定使用燈光","value":13},{"title":"搶越行人穿越道","value":12},{"title":"超速失控","value":11},{"title":"停車操作時，未注意其他車(人)安全","value":10},{"title":"煞車失靈","value":6},{"title":"蛇行、方向不定","value":5},{"title":"車輪脫落或輪胎爆裂","value":4},{"title":"拋錨未採安全措施","value":3},{"title":"其他裝載不當肇事","value":2},{"title":"其他引起事故之故障","value":2},{"title":"裝載貨物不穩妥","value":2},{"title":"路況危險無安全（警告）設施","value":1},{"title":"裝載未盡安全措施","value":1},{"title":"貨物超長、寬、高而肇事","value":1},{"title":"未依標誌、標線、號誌或手勢指揮穿越道路","value":1},{"title":"方向操縱系統故障","value":1},{"title":"尚未發現肇事因","value":1},{"title":"未依規定行走行人穿越道、地下道、天橋而穿越道路","value":1},{"title":"其他交通管制不當","value":0},{"title":"在道路上嬉戲或奔走不定","value":0},{"title":"其他引起事故之疏失或行為","value":0},{"title":"上下車輛未注意安全","value":0},{"title":"未待車輛停妥而上下車","value":0},{"title":"穿越道路未注意左右來車","value":0}],"龜山區":[{"title":"不明原因肇事","value":891},{"title":"未注意車前狀態","value":704},{"title":"未依規定讓車","value":239},{"title":"其他引起事故之違規或不當行為","value":232},{"title":"左轉彎未依規定","value":160},{"title":"違反號誌管制或指揮","value":89},{"title":"右轉彎未依規定","value":87},{"title":"迴轉未依規定","value":72},{"title":"未保持行車安全距離","value":64},{"title":"變換車道或方向不當","value":63},{"title":"尚未發現肇事因素","value":36},{"title":"未保持行車安全間隔","value":35},{"title":"違反特定標誌(線)禁制","value":34},{"title":"開啟車門不當而肇事","value":17},{"title":"起步未注意其他車(人)安全","value":16},{"title":"酒醉(後)駕駛失控","value":14},{"title":"疲勞(患病)駕駛失控","value":13},{"title":"橫越道路不慎","value":11},{"title":"逆向行駛","value":9},{"title":"違規超車","value":9},{"title":"搶越行人穿越道","value":8},{"title":"倒車未依規定","value":8},{"title":"未依規定減速","value":8},{"title":"違規停車或暫停不當而肇事","value":7},{"title":"超速失控","value":7},{"title":"未靠右行駛","value":6},{"title":"停車操作時，未注意其他車(人)安全","value":3},{"title":"爭(搶)道行駛","value":3},{"title":"其他引起事故之疏失或行為","value":2},{"title":"其他引起事故之故障","value":2},{"title":"車輪脫落或輪胎爆裂","value":2},{"title":"煞車失靈","value":1},{"title":"上下車輛未注意安全","value":1},{"title":"裝載貨物不穩妥","value":1},{"title":"尚未發現肇事因","value":1},{"title":"蛇行、方向不定","value":1},{"title":"未依標誌、標線、號誌或手勢指揮穿越道路","value":0},{"title":"未依規定行走行人穿越道、地下道、天橋而穿越道路","value":0},{"title":"穿越道路未注意左右來車","value":0},{"title":"在道路上嬉戲或奔走不定","value":0}],"桃園區":[{"title":"不明原因肇事","value":1901},{"title":"未依規定讓車","value":1220},{"title":"未注意車前狀態","value":786},{"title":"左轉彎未依規定","value":331},{"title":"未保持行車安全距離","value":195},{"title":"違反號誌管制或指揮","value":191},{"title":"未保持行車安全間隔","value":159},{"title":"迴轉未依規定","value":145},{"title":"右轉彎未依規定","value":145},{"title":"違反特定標誌(線)禁制","value":108},{"title":"變換車道或方向不當","value":107},{"title":"其他引起事故之違規或不當行為","value":94},{"title":"起步未注意其他車(人)安全","value":88},{"title":"尚未發現肇事因素","value":78},{"title":"開啟車門不當而肇事","value":72},{"title":"未依規定減速","value":70},{"title":"橫越道路不慎","value":62},{"title":"逆向行駛","value":47},{"title":"未靠右行駛","value":30},{"title":"酒醉(後)駕駛失控","value":30},{"title":"搶越行人穿越道","value":25},{"title":"倒車未依規定","value":24},{"title":"超速失控","value":24},{"title":"疲勞(患病)駕駛失控","value":23},{"title":"違規超車","value":16},{"title":"停車操作時，未注意其他車(人)安全","value":14},{"title":"爭(搶)道行駛","value":10},{"title":"未依規定使用燈光","value":10},{"title":"違規停車或暫停不當而肇事","value":9},{"title":"蛇行、方向不定","value":6},{"title":"未依標誌、標線、號誌或手勢指揮穿越道路","value":4},{"title":"其他引起事故之故障","value":4},{"title":"煞車失靈","value":3},{"title":"貨物超長、寬、高而肇事","value":3},{"title":"車輪脫落或輪胎爆裂","value":3},{"title":"裝載貨物不穩妥","value":3},{"title":"穿越道路未注意左右來車","value":2},{"title":"其他引起事故之疏失或行為","value":2},{"title":"未依規定行走行人穿越道、地下道、天橋而穿越道路","value":2},{"title":"路況危險無安全（警告）設施","value":2},{"title":"吸食違禁物後駕駛失控","value":1},{"title":"拋錨未採安全措施","value":1},{"title":"交通管制設施失靈或損毀","value":1},{"title":"其他交通管制不當","value":1},{"title":"使用手持行動電話失控","value":1},{"title":"方向操縱系統故障","value":1},{"title":"其他裝載不當肇事","value":1},{"title":"裝卸貨物不當","value":1},{"title":"上下車輛未注意安全","value":0},{"title":"未待車輛停妥而上下車","value":0},{"title":"在路上工作未設適當標識","value":0},{"title":"裝載未盡安全措施","value":0},{"title":"尚未發現肇事因","value":0},{"title":"在道路上嬉戲或奔走不定","value":0}],"平鎮區":[{"title":"未注意車前狀態","value":857},{"title":"未依規定讓車","value":386},{"title":"左轉彎未依規定","value":302},{"title":"右轉彎未依規定","value":135},{"title":"尚未發現肇事因素","value":113},{"title":"迴轉未依規定","value":98},{"title":"不明原因肇事","value":85},{"title":"未保持行車安全間隔","value":80},{"title":"違反號誌管制或指揮","value":76},{"title":"未保持行車安全距離","value":71},{"title":"變換車道或方向不當","value":47},{"title":"起步未注意其他車(人)安全","value":42},{"title":"橫越道路不慎","value":41},{"title":"違反特定標誌(線)禁制","value":32},{"title":"其他引起事故之違規或不當行為","value":31},{"title":"逆向行駛","value":26},{"title":"未依規定減速","value":25},{"title":"開啟車門不當而肇事","value":25},{"title":"酒醉(後)駕駛失控","value":23},{"title":"倒車未依規定","value":19},{"title":"疲勞(患病)駕駛失控","value":16},{"title":"違規停車或暫停不當而肇事","value":13},{"title":"違規超車","value":11},{"title":"停車操作時，未注意其他車(人)安全","value":10},{"title":"超速失控","value":6},{"title":"搶越行人穿越道","value":5},{"title":"未靠右行駛","value":5},{"title":"車輪脫落或輪胎爆裂","value":4},{"title":"爭(搶)道行駛","value":4},{"title":"其他引起事故之故障","value":3},{"title":"未依規定使用燈光","value":3},{"title":"煞車失靈","value":3},{"title":"夜間行駛無燈光設備","value":3},{"title":"裝載未盡安全措施","value":2},{"title":"裝卸貨物不當","value":1},{"title":"穿越道路未注意左右來車","value":1},{"title":"燈光系統故障","value":1},{"title":"吸食違禁物後駕駛失控","value":1},{"title":"其他裝載不當肇事","value":1},{"title":"其他引起事故之疏失或行為","value":0},{"title":"尚未發現肇事因","value":0},{"title":"未依規定行走行人穿越道、地下道、天橋而穿越道路","value":0},{"title":"未依標誌、標線、號誌或手勢指揮穿越道路","value":0}],"大園區":[{"title":"未注意車前狀態","value":569},{"title":"未依規定讓車","value":240},{"title":"左轉彎未依規定","value":56},{"title":"違反號誌管制或指揮","value":41},{"title":"右轉彎未依規定","value":41},{"title":"迴轉未依規定","value":40},{"title":"尚未發現肇事因素","value":35},{"title":"不明原因肇事","value":29},{"title":"變換車道或方向不當","value":28},{"title":"酒醉(後)駕駛失控","value":27},{"title":"未保持行車安全間隔","value":24},{"title":"起步未注意其他車(人)安全","value":23},{"title":"其他引起事故之違規或不當行為","value":13},{"title":"未依規定減速","value":12},{"title":"未靠右行駛","value":11},{"title":"倒車未依規定","value":11},{"title":"未保持行車安全距離","value":10},{"title":"超速失控","value":10},{"title":"橫越道路不慎","value":10},{"title":"開啟車門不當而肇事","value":9},{"title":"違規停車或暫停不當而肇事","value":8},{"title":"違規超車","value":7},{"title":"逆向行駛","value":6},{"title":"違反特定標誌(線)禁制","value":6},{"title":"搶越行人穿越道","value":5},{"title":"其他引起事故之故障","value":2},{"title":"路況危險無安全（警告）設施","value":2},{"title":"蛇行、方向不定","value":2},{"title":"停車操作時，未注意其他車(人)安全","value":1},{"title":"未依規定行走行人穿越道、地下道、天橋而穿越道路","value":1},{"title":"裝載貨物不穩妥","value":1},{"title":"疲勞(患病)駕駛失控","value":1},{"title":"未依規定使用燈光","value":1},{"title":"穿越道路未注意左右來車","value":0},{"title":"其他裝載不當肇事","value":0},{"title":"貨物超長、寬、高而肇事","value":0}],"觀音區":[{"title":"未注意車前狀態","value":198},{"title":"左轉彎未依規定","value":29},{"title":"未依規定讓車","value":28},{"title":"違反號誌管制或指揮","value":20},{"title":"迴轉未依規定","value":18},{"title":"右轉彎未依規定","value":17},{"title":"變換車道或方向不當","value":10},{"title":"倒車未依規定","value":9},{"title":"逆向行駛","value":9},{"title":"不明原因肇事","value":8},{"title":"橫越道路不慎","value":8},{"title":"酒醉(後)駕駛失控","value":8},{"title":"疲勞(患病)駕駛失控","value":8},{"title":"未保持行車安全距離","value":5},{"title":"尚未發現肇事因素","value":4},{"title":"違規超車","value":3},{"title":"違規停車或暫停不當而肇事","value":3},{"title":"超速失控","value":3},{"title":"未保持行車安全間隔","value":3},{"title":"煞車失靈","value":2},{"title":"違反特定標誌(線)禁制","value":2},{"title":"起步未注意其他車(人)安全","value":2},{"title":"蛇行、方向不定","value":2},{"title":"其他引起事故之故障","value":2},{"title":"其他引起事故之違規或不當行為","value":2},{"title":"交通指揮不當","value":1},{"title":"開啟車門不當而肇事","value":1},{"title":"車輪脫落或輪胎爆裂","value":1},{"title":"裝載未盡安全措施","value":1},{"title":"爭(搶)道行駛","value":1},{"title":"方向操縱系統故障","value":1},{"title":"吸食違禁物後駕駛失控","value":1},{"title":"未靠右行駛","value":1},{"title":"未依規定減速","value":1},{"title":"穿越道路未注意左右來車","value":0},{"title":"未依規定行走行人穿越道、地下道、天橋而穿越道路","value":0}],"復興區":[{"title":"未注意車前狀態","value":10},{"title":"尚未發現肇事因素","value":6},{"title":"超速失控","value":5},{"title":"未依規定減速","value":2},{"title":"左轉彎未依規定","value":2},{"title":"迴轉未依規定","value":2},{"title":"違規超車","value":2},{"title":"橫越道路不慎","value":2},{"title":"不明原因肇事","value":2},{"title":"停車操作時，未注意其他車(人)安全","value":1},{"title":"其他引起事故之違規或不當行為","value":1},{"title":"右轉彎未依規定","value":1},{"title":"逆向行駛","value":1},{"title":"未保持行車安全距離","value":1},{"title":"違反特定標誌(線)禁制","value":1},{"title":"未靠右行駛","value":1},{"title":"起步未注意其他車(人)安全","value":1},{"title":"其他引起事故之故障","value":1},{"title":"穿越道路未注意左右來車","value":0},{"title":"酒醉(後)駕駛失控","value":0}],"龍潭區":[{"title":"未依規定讓車","value":305},{"title":"未注意車前狀態","value":276},{"title":"左轉彎未依規定","value":188},{"title":"不明原因肇事","value":96},{"title":"右轉彎未依規定","value":76},{"title":"違反號誌管制或指揮","value":69},{"title":"迴轉未依規定","value":64},{"title":"未保持行車安全間隔","value":48},{"title":"變換車道或方向不當","value":46},{"title":"其他引起事故之違規或不當行為","value":43},{"title":"尚未發現肇事因素","value":41},{"title":"未保持行車安全距離","value":39},{"title":"起步未注意其他車(人)安全","value":29},{"title":"違反特定標誌(線)禁制","value":25},{"title":"倒車未依規定","value":19},{"title":"橫越道路不慎","value":17},{"title":"疲勞(患病)駕駛失控","value":16},{"title":"逆向行駛","value":15},{"title":"開啟車門不當而肇事","value":12},{"title":"未依規定減速","value":12},{"title":"未靠右行駛","value":12},{"title":"違規超車","value":10},{"title":"酒醉(後)駕駛失控","value":9},{"title":"超速失控","value":6},{"title":"停車操作時，未注意其他車(人)安全","value":5},{"title":"煞車失靈","value":3},{"title":"未依規定使用燈光","value":2},{"title":"違規停車或暫停不當而肇事","value":2},{"title":"其他引起事故之故障","value":2},{"title":"搶越行人穿越道","value":2},{"title":"蛇行、方向不定","value":1},{"title":"其他裝載不當肇事","value":1},{"title":"未依標誌、標線、號誌或手勢指揮穿越道路","value":1},{"title":"車輪脫落或輪胎爆裂","value":1},{"title":"穿越道路未注意左右來車","value":0},{"title":"其他引起事故之疏失或行為","value":0},{"title":"未依規定行走行人穿越道、地下道、天橋而穿越道路","value":0}]}
 
 /***/ })
 /******/ ]);
