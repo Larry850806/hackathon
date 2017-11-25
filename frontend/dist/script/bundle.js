@@ -162,11 +162,18 @@ exports.default = { showBubbleChart: showBubbleChart };
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _stat = __webpack_require__(5);
+
+var _stat2 = _interopRequireDefault(_stat);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var config = {
     chart: {
         type: 'bubble',
@@ -188,71 +195,32 @@ var config = {
         },
         labels: {
             format: '{value} %'
-        },
-        plotLines: [{
-            color: 'black',
-            dashStyle: 'dot',
-            width: 2,
-            value: 65,
-            label: {
-                rotation: 0,
-                y: 15,
-                style: {
-                    fontStyle: 'italic'
-                },
-                text: 'Safe fat intake 65g/day'
-            },
-            zIndex: 3
-        }]
+        }
     },
     yAxis: {
         startOnTick: false,
         endOnTick: false,
         title: {
-            text: 'Daily sugar intake'
+            text: '限速'
         },
         labels: {
-            format: '{value} gr'
+            format: '{value} km/h'
         },
-        maxPadding: 0.2,
-        plotLines: [{
-            color: 'black',
-            dashStyle: 'dot',
-            width: 2,
-            value: 50,
-            label: {
-                align: 'right',
-                style: {
-                    fontStyle: 'italic'
-                },
-                text: 'Safe sugar intake 50g/day',
-                x: -10
-            },
-            zIndex: 3
-        }]
-    },
-    tooltip: {
-        useHTML: true,
-        headerFormat: '<table>',
-        pointFormat: '<tr><th colspan="2"><h3>{point.country}</h3></th></tr>' + '<tr><th>Fat intake:</th><td>{point.x}g</td></tr>' + '<tr><th>Sugar intake:</th><td>{point.y}g</td></tr>' + '<tr><th>Obesity (adults):</th><td>{point.z}%</td></tr>',
-        footerFormat: '</table>',
-        followPointer: true
+        maxPadding: 0.2
     },
 
-    plotOptions: {
-        series: {
-            dataLabels: {
-                enabled: true,
-                format: '{point.name}'
-            }
-        }
-    },
     series: [{
-        data: [{ x: 95, y: 95, z: 13.8, name: 'BE', country: 'Belgium' }, { x: 86.5, y: 102.9, z: 14.7, name: 'DE', country: 'Germany' }, { x: 80.8, y: 91.5, z: 15.8, name: 'FI', country: 'Finland' }, { x: 80.4, y: 102.5, z: 12, name: 'NL', country: 'Netherlands' }, { x: 80.3, y: 86.1, z: 11.8, name: 'SE', country: 'Sweden' }, { x: 78.4, y: 70.1, z: 16.6, name: 'ES', country: 'Spain' }, { x: 74.2, y: 68.5, z: 14.5, name: 'FR', country: 'France' }, { x: 73.5, y: 83.1, z: 10, name: 'NO', country: 'Norway' }, { x: 71, y: 93.2, z: 24.7, name: 'UK', country: 'United Kingdom' }, { x: 69.2, y: 57.6, z: 10.4, name: 'IT', country: 'Italy' }, { x: 68.6, y: 20, z: 16, name: 'RU', country: 'Russia' }, { x: 65.5, y: 126.4, z: 35.3, name: 'US', country: 'United States' }, { x: 65.4, y: 50.8, z: 28.5, name: 'HU', country: 'Hungary' }, { x: 63.4, y: 51.8, z: 15.4, name: 'PT', country: 'Portugal' }, { x: 64, y: 82.9, z: 31.3, name: 'NZ', country: 'New Zealand' }]
+        data: [_stat2.default]
     }]
 };
 
 exports.default = config;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+module.exports = {"新屋區":{"酒醉(後)駕駛失控":{"avg_death":1.2307692307692308,"avg_alchol":0.22307692307692312,"avg_limit":48.46153846153846},"超速失控":{"avg_death":1.5,"avg_alchol":0,"avg_limit":40}},"蘆竹區":{"酒醉(後)駕駛失控":{"avg_death":1.12,"avg_alchol":0.20900000000000002,"avg_limit":47.6},"超速失控":{"avg_death":1,"avg_alchol":0,"avg_limit":50}},"八德區":{"酒醉(後)駕駛失控":{"avg_death":1.5,"avg_alchol":0.2208333333333333,"avg_limit":47.5},"超速失控":{"avg_death":1,"avg_alchol":0,"avg_limit":45}},"大溪區":{"酒醉(後)駕駛失控":{"avg_death":1.1666666666666667,"avg_alchol":0.19999999999999998,"avg_limit":46.666666666666664},"超速失控":{"avg_death":1.2352941176470589,"avg_alchol":0,"avg_limit":42.35294117647059}},"楊梅區":{"酒醉(後)駕駛失控":{"avg_death":1.2,"avg_alchol":0.20749999999999996,"avg_limit":47},"超速失控":{"avg_death":1.5454545454545454,"avg_alchol":0,"avg_limit":46.36363636363637}},"中壢區":{"酒醉(後)駕駛失控":{"avg_death":1.2258064516129032,"avg_alchol":0.2153225806451614,"avg_limit":48.38709677419355},"超速失控":{"avg_death":1.1818181818181819,"avg_alchol":0,"avg_limit":49.54545454545455}},"龜山區":{"酒醉(後)駕駛失控":{"avg_death":1.2142857142857142,"avg_alchol":0.20535714285714285,"avg_limit":50},"超速失控":{"avg_death":1.1428571428571428,"avg_alchol":0,"avg_limit":52.857142857142854}},"桃園區":{"酒醉(後)駕駛失控":{"avg_death":1.3333333333333333,"avg_alchol":0.2341666666666668,"avg_limit":45.833333333333336},"超速失控":{"avg_death":1.375,"avg_alchol":0,"avg_limit":45.416666666666664}},"平鎮區":{"酒醉(後)駕駛失控":{"avg_death":1.173913043478261,"avg_alchol":0.2097826086956522,"avg_limit":48.26086956521739},"超速失控":{"avg_death":2,"avg_alchol":0,"avg_limit":61.666666666666664}},"大園區":{"酒醉(後)駕駛失控":{"avg_death":1.2222222222222223,"avg_alchol":0.2046296296296297,"avg_limit":47.77777777777778},"超速失控":{"avg_death":1,"avg_alchol":0.0075,"avg_limit":52}},"觀音區":{"酒醉(後)駕駛失控":{"avg_death":1.25,"avg_alchol":0.22187499999999996,"avg_limit":51.25},"超速失控":{"avg_death":1.3333333333333333,"avg_alchol":0,"avg_limit":53.333333333333336}},"復興區":{"酒醉(後)駕駛失控":{"avg_death":0,"avg_alchol":0,"avg_limit":0},"超速失控":{"avg_death":1.2,"avg_alchol":0,"avg_limit":42}},"龍潭區":{"酒醉(後)駕駛失控":{"avg_death":1.1111111111111112,"avg_alchol":0.2027777777777778,"avg_limit":46.666666666666664},"超速失控":{"avg_death":1.5,"avg_alchol":0.03333333333333333,"avg_limit":45}}}
 
 /***/ })
 /******/ ]);
