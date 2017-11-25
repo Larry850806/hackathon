@@ -180,7 +180,7 @@ function showBubbleChart(district) {
 }
 
 function showBarChart(district) {
-    Highcharts.chart('container1', Object.assign({}, _config2.default, {
+    Highcharts.chart('container1', Object.assign({}, _config2.default.bar, {
         title: {
             text: district + '\u8087\u4E8B\u4E3B\u56E0'
         },

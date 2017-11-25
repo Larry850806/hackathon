@@ -1,12 +1,9 @@
 div#container {
-  display: inline-flex;
-  justify-content: space-between;
-  height: 400px;
-  min-width: 310px;
-  max-width: 600px; }
+  display: inline-block;
+  width: 50%;
+  height: 400px; }
 
 div#container1 {
-  display: inline-flex;
+  display: inline-block;
   height: 400px;
-  min-width: 310px;
-  max-width: 600px; }
+  width: 50%; }

@@ -25,7 +25,7 @@ function showBubbleChart(district) {
 function showBarChart(district) {
     Highcharts.chart(
     'container1',
-    Object.assign({}, config, {
+    Object.assign({}, config.bar, {
         title: {
             text: `${district}肇事主因`
         },
