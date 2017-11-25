@@ -195,7 +195,13 @@ function showBarChart(district) {
             }),
             title: {
                 text: null
+            },
+            labels: {
+                style: {
+                    fontSize: '18px'
+                }
             }
+
         },
         series: [{
             data: _reason2.default[district].slice(0, 5).map(function (e) {
@@ -227,20 +233,32 @@ var bubble = {
     xAxis: {
         gridLineWidth: 1,
         title: {
-            text: '酒精平均濃度'
+            text: '酒精平均濃度',
+            style: {
+                fontSize: '18px'
+            }
         },
         labels: {
-            format: '{value} %'
+            format: '{value} %',
+            style: {
+                fontSize: '18px'
+            }
         }
     },
     yAxis: {
         startOnTick: false,
         endOnTick: false,
         title: {
-            text: '限速'
+            text: '限速',
+            style: {
+                fontSize: '18px'
+            }
         },
         labels: {
-            format: '{value} km/h'
+            format: '{value} km/h',
+            style: {
+                fontSize: '18px'
+            }
         },
         maxPadding: 0.2
     }
@@ -255,7 +273,9 @@ var bar = {
         min: 0,
         title: {
             text: '事件數量',
-            align: 'high'
+            style: {
+                fontSize: '18px'
+            }
         },
         labels: {
             overflow: 'justify'

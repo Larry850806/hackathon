@@ -33,7 +33,13 @@ function showBarChart(district) {
             categories: reasonDatas[district].slice(0,5).map(e => e.title),
             title: {
                 text: null
+            },
+            labels: {
+                style: {
+                    fontSize:'18px'
+                }
             }
+            
         },
         series: [{
             data: reasonDatas[district].slice(0,5).map(e => e.value)
