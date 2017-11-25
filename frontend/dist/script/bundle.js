@@ -67,7 +67,9 @@
 /* 0 */
 /***/ (function(module, exports) {
 
-console.log(123);
+/*global $*/
+
+$(function () {});
 
 /***/ })
 /******/ ]);
