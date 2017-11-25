@@ -151,67 +151,74 @@ var _config = __webpack_require__(4);
 
 var _config2 = _interopRequireDefault(_config);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function showBubbleChart() {
-  Highcharts.chart('container', _config2.default);
-} // import Highcharts from 'highcharts'
-// window.Highcharts = Highcharts
-// require('highcharts-more')
-exports.default = { showBubbleChart: showBubbleChart };
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
 var _stat = __webpack_require__(5);
 
 var _stat2 = _interopRequireDefault(_stat);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var config = {
-    chart: {
-        type: 'bubble',
-        plotBorderWidth: 1,
-        zoomType: 'xy'
-    },
-    legend: {
-        enabled: false
-    },
+// import Highcharts from 'highcharts'
+// window.Highcharts = Highcharts
+// require('highcharts-more')
+function showBubbleChart(district) {
+  console.log(district);
 
-    title: {
-        text: '死亡率'
-    },
-
-    xAxis: {
-        gridLineWidth: 1,
-        title: {
-            text: '酒精平均濃度'
-        },
-        labels: {
-            format: '{value} %'
-        }
-    },
-    yAxis: {
-        startOnTick: false,
-        endOnTick: false,
-        title: {
-            text: '限速'
-        },
-        labels: {
-            format: '{value} km/h'
-        },
-        maxPadding: 0.2
-    },
-
+  Highcharts.chart('container', Object.assign({}, _config2.default, {
     series: [{
-        data: [_stat2.default]
+      data: _stat2.default[district].map(function (data) {
+        return {
+          x: data.data.avg_alchol,
+          y: data.data.avg_limit,
+          z: data.data.avg_death * 1000
+        };
+      })
     }]
+  }));
+}
+
+exports.default = { showBubbleChart: showBubbleChart };
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var config = {
+  chart: {
+    type: 'bubble',
+    plotBorderWidth: 1,
+    zoomType: 'xy'
+  },
+  legend: {
+    enabled: false
+  },
+
+  title: {
+    text: '死亡率'
+  },
+
+  xAxis: {
+    gridLineWidth: 1,
+    title: {
+      text: '酒精平均濃度'
+    },
+    labels: {
+      format: '{value} %'
+    }
+  },
+  yAxis: {
+    startOnTick: false,
+    endOnTick: false,
+    title: {
+      text: '限速'
+    },
+    labels: {
+      format: '{value} km/h'
+    },
+    maxPadding: 0.2
+  }
 };
 
 exports.default = config;
@@ -220,7 +227,7 @@ exports.default = config;
 /* 5 */
 /***/ (function(module, exports) {
 
-module.exports = {"新屋區":{"酒醉(後)駕駛失控":{"avg_death":1.2307692307692308,"avg_alchol":0.22307692307692312,"avg_limit":48.46153846153846},"超速失控":{"avg_death":1.5,"avg_alchol":0,"avg_limit":40}},"蘆竹區":{"酒醉(後)駕駛失控":{"avg_death":1.12,"avg_alchol":0.20900000000000002,"avg_limit":47.6},"超速失控":{"avg_death":1,"avg_alchol":0,"avg_limit":50}},"八德區":{"酒醉(後)駕駛失控":{"avg_death":1.5,"avg_alchol":0.2208333333333333,"avg_limit":47.5},"超速失控":{"avg_death":1,"avg_alchol":0,"avg_limit":45}},"大溪區":{"酒醉(後)駕駛失控":{"avg_death":1.1666666666666667,"avg_alchol":0.19999999999999998,"avg_limit":46.666666666666664},"超速失控":{"avg_death":1.2352941176470589,"avg_alchol":0,"avg_limit":42.35294117647059}},"楊梅區":{"酒醉(後)駕駛失控":{"avg_death":1.2,"avg_alchol":0.20749999999999996,"avg_limit":47},"超速失控":{"avg_death":1.5454545454545454,"avg_alchol":0,"avg_limit":46.36363636363637}},"中壢區":{"酒醉(後)駕駛失控":{"avg_death":1.2258064516129032,"avg_alchol":0.2153225806451614,"avg_limit":48.38709677419355},"超速失控":{"avg_death":1.1818181818181819,"avg_alchol":0,"avg_limit":49.54545454545455}},"龜山區":{"酒醉(後)駕駛失控":{"avg_death":1.2142857142857142,"avg_alchol":0.20535714285714285,"avg_limit":50},"超速失控":{"avg_death":1.1428571428571428,"avg_alchol":0,"avg_limit":52.857142857142854}},"桃園區":{"酒醉(後)駕駛失控":{"avg_death":1.3333333333333333,"avg_alchol":0.2341666666666668,"avg_limit":45.833333333333336},"超速失控":{"avg_death":1.375,"avg_alchol":0,"avg_limit":45.416666666666664}},"平鎮區":{"酒醉(後)駕駛失控":{"avg_death":1.173913043478261,"avg_alchol":0.2097826086956522,"avg_limit":48.26086956521739},"超速失控":{"avg_death":2,"avg_alchol":0,"avg_limit":61.666666666666664}},"大園區":{"酒醉(後)駕駛失控":{"avg_death":1.2222222222222223,"avg_alchol":0.2046296296296297,"avg_limit":47.77777777777778},"超速失控":{"avg_death":1,"avg_alchol":0.0075,"avg_limit":52}},"觀音區":{"酒醉(後)駕駛失控":{"avg_death":1.25,"avg_alchol":0.22187499999999996,"avg_limit":51.25},"超速失控":{"avg_death":1.3333333333333333,"avg_alchol":0,"avg_limit":53.333333333333336}},"復興區":{"酒醉(後)駕駛失控":{"avg_death":0,"avg_alchol":0,"avg_limit":0},"超速失控":{"avg_death":1.2,"avg_alchol":0,"avg_limit":42}},"龍潭區":{"酒醉(後)駕駛失控":{"avg_death":1.1111111111111112,"avg_alchol":0.2027777777777778,"avg_limit":46.666666666666664},"超速失控":{"avg_death":1.5,"avg_alchol":0.03333333333333333,"avg_limit":45}}}
+module.exports = {"新屋區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.2307692307692308,"avg_alchol":0.22307692307692312,"avg_limit":48.46153846153846}},{"title":"超速失控","data":{"avg_death":1.5,"avg_alchol":0,"avg_limit":40}}],"蘆竹區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.12,"avg_alchol":0.20900000000000002,"avg_limit":47.6}},{"title":"超速失控","data":{"avg_death":1,"avg_alchol":0,"avg_limit":50}}],"八德區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.5,"avg_alchol":0.2208333333333333,"avg_limit":47.5}},{"title":"超速失控","data":{"avg_death":1,"avg_alchol":0,"avg_limit":45}}],"大溪區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.1666666666666667,"avg_alchol":0.19999999999999998,"avg_limit":46.666666666666664}},{"title":"超速失控","data":{"avg_death":1.2352941176470589,"avg_alchol":0,"avg_limit":42.35294117647059}}],"楊梅區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.2,"avg_alchol":0.20749999999999996,"avg_limit":47}},{"title":"超速失控","data":{"avg_death":1.5454545454545454,"avg_alchol":0,"avg_limit":46.36363636363637}}],"中壢區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.2258064516129032,"avg_alchol":0.2153225806451614,"avg_limit":48.38709677419355}},{"title":"超速失控","data":{"avg_death":1.1818181818181819,"avg_alchol":0,"avg_limit":49.54545454545455}}],"龜山區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.2142857142857142,"avg_alchol":0.20535714285714285,"avg_limit":50}},{"title":"超速失控","data":{"avg_death":1.1428571428571428,"avg_alchol":0,"avg_limit":52.857142857142854}}],"桃園區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.3333333333333333,"avg_alchol":0.2341666666666668,"avg_limit":45.833333333333336}},{"title":"超速失控","data":{"avg_death":1.375,"avg_alchol":0,"avg_limit":45.416666666666664}}],"平鎮區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.173913043478261,"avg_alchol":0.2097826086956522,"avg_limit":48.26086956521739}},{"title":"超速失控","data":{"avg_death":2,"avg_alchol":0,"avg_limit":61.666666666666664}}],"大園區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.2222222222222223,"avg_alchol":0.2046296296296297,"avg_limit":47.77777777777778}},{"title":"超速失控","data":{"avg_death":1,"avg_alchol":0.0075,"avg_limit":52}}],"觀音區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.25,"avg_alchol":0.22187499999999996,"avg_limit":51.25}},{"title":"超速失控","data":{"avg_death":1.3333333333333333,"avg_alchol":0,"avg_limit":53.333333333333336}}],"復興區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":0,"avg_alchol":0,"avg_limit":0}},{"title":"超速失控","data":{"avg_death":1.2,"avg_alchol":0,"avg_limit":42}}],"龍潭區":[{"title":"酒醉(後)駕駛失控","data":{"avg_death":1.1111111111111112,"avg_alchol":0.2027777777777778,"avg_limit":46.666666666666664}},{"title":"超速失控","data":{"avg_death":1.5,"avg_alchol":0.03333333333333333,"avg_limit":45}}]}
 
 /***/ })
 /******/ ]);
